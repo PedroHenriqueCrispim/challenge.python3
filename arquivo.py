@@ -1,11 +1,3 @@
-# Rafael Autieri - RM550885
-# Caique Chargas - RM551943
-# Rodrigo Resende - RM551057
-# Pedro Crispim - RM99005
-# Giuliano Romaneto - RM99694
-
-# Esse é um programa python para controlar os visitantes que entram nas escolas/faculdades, aqui você vê o nome da pessoa, a idade, o horario que ela entrou e saiu o numero do documento e o motivo da entrada e depois ainda consegue ver os dados das pessoas antigas que ja foram cadastrada. 
-
 # Dados iniciais
 visitantes = []
 
@@ -35,7 +27,15 @@ def registrar_visitante():
         horario_entrada = input("Digite o horário de entrada do visitante (formato HH:MM): ")
         horario_saida = input("Digite o horário de saída do visitante (formato HH:MM): ")
 
-        visitante = [nome, idade, documento, motivo, horario_entrada, horario_saida]
+        visitante = {
+            'Nome': nome,
+            'Idade': idade,
+            'Documento': documento,
+            'Motivo': motivo,
+            'Entrada': horario_entrada,
+            'Saída': horario_saida
+        }
+
         visitantes.append(visitante)
 
         print("Registro concluído com sucesso.")
@@ -49,13 +49,13 @@ def pesquisar_visitante():
     nome_pesquisa = input("Digite o nome do visitante que deseja pesquisar: ")
     encontrado = False
     for visitante in visitantes:
-        if visitante[0] == nome_pesquisa:
-            print(f"Nome: {visitante[0]}")
-            print(f"Idade: {visitante[1]}")
-            print(f"Documento: {visitante[2]}")
-            print(f"Motivo da visita: {visitante[3]}")
-            print(f"Horário de entrada: {visitante[4]}")
-            print(f"Horário de saída: {visitante[5]}")
+        if visitante['Nome'] == nome_pesquisa:
+            print(f"Nome: {visitante['Nome']}")
+            print(f"Idade: {visitante['Idade']}")
+            print(f"Documento: {visitante['Documento']}")
+            print(f"Motivo da visita: {visitante['Motivo']}")
+            print(f"Horário de entrada: {visitante['Entrada']}")
+            print(f"Horário de saída: {visitante['Saída']}")
             encontrado = True
             break
 
@@ -68,7 +68,6 @@ def main():
         exibir_menu()
         opcao = input("O que deseja escolher: ")
         if opcao == "1":
-            preencher_dados()
             registrar_visitante()
         elif opcao == "2":
             pesquisar_visitante()
@@ -78,13 +77,6 @@ def main():
             print("Opção inválida. Tente novamente.")
 
     print("Programa encerrado.")
-
-# Função auxiliar para preencher os dados
-def preencher_dados():
-    print("\nPor favor, preencha os dados do visitante.")
-    print("O nome deve conter apenas letras.")
-    print("O número do documento de identificação deve conter 11 dígitos numéricos.")
-    print("Os horários devem estar no formato HH:MM.\n")
 
 # Iniciar o programa
 if __name__ == "__main__":
