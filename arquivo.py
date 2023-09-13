@@ -37,9 +37,9 @@ def registrar_visitante():
             horario_entrada = input("Digite o horário de entrada do visitante (formato HH:MM): ")
             horario_saida = input("Digite o horário de saída do visitante (formato HH:MM): ")
             try:
-                entrada = datetime.strptime(horario_entrada, "%H:%M")
-                saida = datetime.strptime(horario_saida, "%H:%M")
-                if saida >= entrada:
+                entrada = horario_entrada
+                saida = horario_saida
+                if entrada <= saida:
                     break
                 else:
                     print("A hora de saída deve ser maior ou igual à hora de entrada. Tente novamente.")
@@ -52,8 +52,8 @@ def registrar_visitante():
             'Idade': idade,
             'Documento': documento,
             'Motivo': motivo,
-            'Entrada': horario_entrada,
-            'Saída': horario_saida
+            'Entrada': entrada,
+            'Saída': saida
         }
 
         visitantes.append(visitante)
@@ -68,8 +68,6 @@ def registrar_visitante():
                 return
             else:
                 print("Resposta inválida. Por favor, digite 'S' para Sim ou 'N' para Não.")
-
-
 
 # Função para pesquisar um visitante
 def pesquisar_visitante():
