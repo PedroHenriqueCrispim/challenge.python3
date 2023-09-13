@@ -1,3 +1,6 @@
+# Importar o módulo datetime no início do seu código
+from datetime import datetime
+
 # Dados iniciais
 visitantes = []
 
@@ -17,6 +20,11 @@ def registrar_visitante():
             continue
 
         idade = input("Digite a idade do visitante: ")
+        try:
+            idade = int(idade)
+        except ValueError:
+            print("A idade deve ser um número inteiro. Tente novamente.")
+            continue
 
         documento = input("Digite o número do CPF de identificação do visitante: ")
         if len(documento) != 11 or not documento.isdigit():
@@ -24,8 +32,20 @@ def registrar_visitante():
             continue
 
         motivo = input("Digite o motivo da visita: ")
-        horario_entrada = input("Digite o horário de entrada do visitante (formato HH:MM): ")
-        horario_saida = input("Digite o horário de saída do visitante (formato HH:MM): ")
+        
+        while True:
+            horario_entrada = input("Digite o horário de entrada do visitante (formato HH:MM): ")
+            horario_saida = input("Digite o horário de saída do visitante (formato HH:MM): ")
+            try:
+                entrada = datetime.strptime(horario_entrada, "%H:%M")
+                saida = datetime.strptime(horario_saida, "%H:%M")
+                if saida >= entrada:
+                    break
+                else:
+                    print("A hora de saída deve ser maior ou igual à hora de entrada. Tente novamente.")
+            except ValueError:
+                print("Formato de hora inválido. Use HH:MM. Tente novamente.")
+                continue
 
         visitante = {
             'Nome': nome,
@@ -40,9 +60,16 @@ def registrar_visitante():
 
         print("Registro concluído com sucesso.")
 
-        continuar = input("Deseja registrar outro visitante? (S/N)")
-        if continuar.upper() != "S":
-            break
+        while True:
+            continuar = input("Deseja registrar outro visitante? (S/N)").upper()
+            if continuar == "S":
+                break
+            elif continuar == "N":
+                return
+            else:
+                print("Resposta inválida. Por favor, digite 'S' para Sim ou 'N' para Não.")
+
+
 
 # Função para pesquisar um visitante
 def pesquisar_visitante():
