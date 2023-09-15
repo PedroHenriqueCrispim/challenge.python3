@@ -69,22 +69,25 @@ def registrar_visitante():
             else:
                 print("Resposta inválida. Por favor, digite 'S' para Sim ou 'N' para Não.")
 
-# Função para pesquisar um visitante
+# Função para pesquisar visitantes com o mesmo nome
 def pesquisar_visitante():
     nome_pesquisa = input("Digite o nome do visitante que deseja pesquisar: ")
-    encontrado = False
+    encontrados = []
     for visitante in visitantes:
         if visitante['Nome'] == nome_pesquisa:
+            encontrados.append(visitante)
+
+    if encontrados:
+        print("Informações dos visitantes com o mesmo nome:")
+        for visitante in encontrados:
             print(f"Nome: {visitante['Nome']}")
             print(f"Idade: {visitante['Idade']}")
             print(f"Documento: {visitante['Documento']}")
             print(f"Motivo da visita: {visitante['Motivo']}")
             print(f"Horário de entrada: {visitante['Entrada']}")
             print(f"Horário de saída: {visitante['Saída']}")
-            encontrado = True
-            break
-
-    if not encontrado:
+            print("-" * 20)  # Uma linha separadora entre os visitantes
+    else:
         print("Visitante não encontrado.")
 
 # Função principal

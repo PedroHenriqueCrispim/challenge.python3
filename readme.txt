@@ -1,46 +1,42 @@
-# Controle de Visitantes em Escolas/Faculdades
+#Controle de Visitantes em Escolas/Faculdades
 
-Este é um programa desenvolvido em Python para controlar os visitantes que entram em escolas ou faculdades. O programa permite o registro de informações dos visitantes, como nome, idade, horários de entrada e saída, documento de identificação e motivo da visita. Além disso, oferece a funcionalidade de pesquisa de visitantes cadastrados.
+Este é um programa Python criado para gerenciar o registro de visitantes em escolas ou faculdades. Com ele, você pode registrar informações detalhadas sobre os visitantes, como nome, idade, documento de identificação, motivo da visita, horário de entrada e horário de saída. Além disso, o programa permite realizar pesquisas sobre os visitantes já cadastrados.
 
-## Integrantes do Grupo
+#Integrantes do Grupo
 
-- Rafael Autieri (RM550885)
-- Caique Chargas (RM551943)
-- Rodrigo Resende (RM551057)
-- Pedro Crispim (RM99005)
-- Giuliano Romaneto (RM99694)
+-Rafael Autieri (RM550885)
+-Caique Chagas (RM551943)
+-Rodrigo Resende (RM551057)
+-Pedro Crispim (RM99005)
+-Giuliano Romaneto (RM99694)
 
-## Funcionalidades Implementadas
 
-1. **Registrar novo visitante:** Permite registrar as informações de um novo visitante, como nome, idade, documento de identificação, motivo da visita, horário de entrada e horário de saída. As informações são armazenadas em uma lista de visitantes.
+#Funcionalidades Implementadas
 
-2. **Pesquisar visitante:** Permite pesquisar um visitante pelo nome e exibir suas informações, incluindo nome, idade, documento, motivo da visita, horário de entrada e horário de saída.
+Registrar novo visitante: Você pode inserir as informações de um novo visitante no programa, incluindo nome, idade, número de documento, motivo da visita, horário de entrada e horário de saída. Os dados são armazenados em uma lista de visitantes.
 
-3. **Menu de opções:** O programa apresenta um menu de opções que permite ao usuário escolher entre registrar um novo visitante, pesquisar um visitante ou encerrar o programa.
+Pesquisar visitante: O programa permite que você busque um visitante pelo nome e exiba todos os detalhes cadastrados sobre ele, como nome, idade, documento, motivo da visita, horário de entrada e horário de saída.
 
-## Especificações e Exigências Atendidas
+Menu de opções: O programa apresenta um menu de opções interativo que permite escolher entre registrar um novo visitante, pesquisar um visitante existente ou encerrar o programa.
 
-- Utilização de conceitos de entrada, processamento e saída de dados utilizando f-strings.
-- Realização de validações para garantir que as informações fornecidas pelos usuários estejam corretas.
-- Armazenamento de dados dos visitantes em uma lista.
-- Utilização de estruturas condicionais e de repetição.
-- Construção de funções para as principais funcionalidades do programa.
 
-## Como Utilizar
+#Especificações e Exigências Atendidas
 
-1. Execute o programa utilizando um interpretador Python (Python 3 recomendado).
-2. Siga as instruções do menu para registrar novos visitantes ou pesquisar visitantes cadastrados.
-3. O programa permite que você encerre a execução quando desejar.
+Utilização de conceitos de entrada, processamento e saída de dados, empregando f-strings para formatar as informações exibidas de forma clara.
 
-## Arquivos Incluídos
+Realização de validações para garantir que as informações fornecidas pelos usuários estejam corretas, como verificar se o CPF tem 11 dígitos e se a hora de saída é posterior à hora de entrada.
 
-- `controle_visitantes.py`: O código-fonte do programa em Python.
-- `integrantes.txt`: Um arquivo de texto contendo os nomes dos integrantes do grupo e uma descrição das funcionalidades implementadas.
+Armazenamento dos dados dos visitantes em uma lista para fácil acesso e pesquisa.
 
-## Considerações Finais
+Utilização de estruturas condicionais e de repetição para conduzir as operações do programa, incluindo loops para registrar múltiplos visitantes.
 
-Este programa foi desenvolvido como parte de um projeto de Computational Thinking utilizando Python. Ele oferece uma solução básica para o controle de visitantes em escolas ou faculdades. Sinta-se à vontade para expandir e aprimorar as funcionalidades conforme necessário.
+Construção de funções para as principais funcionalidades do programa, como registrar e pesquisar visitantes.
 
-Se tiver alguma dúvida ou sugestão, entre em contato com algum dos integrantes do grupo.
 
-Programa desenvolvido em [data de conclusão].
+#Como Utilizar
+
+Execute o programa em um interpretador Python, preferencialmente Python 3.
+
+Siga as opções apresentadas no menu para registrar novos visitantes, pesquisar visitantes cadastrados ou encerrar o programa.
+
+O programa permite que você encerre a execução a qualquer momento.
