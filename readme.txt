@@ -1,6 +1,4 @@
-#Controle de Visitantes em Escolas/Faculdades
-
-Este é um programa Python criado para gerenciar o registro de visitantes em escolas ou faculdades. Com ele, você pode registrar informações detalhadas sobre os visitantes, como nome, idade, documento de identificação, motivo da visita, horário de entrada e horário de saída. Além disso, o programa permite realizar pesquisas sobre os visitantes já cadastrados.
+Sistema de Controle de Visitantes + botao de emergência
 
 #Integrantes do Grupo
 
@@ -11,32 +9,28 @@ Este é um programa Python criado para gerenciar o registro de visitantes em esc
 -Giuliano Romaneto (RM99694)
 
 
-#Funcionalidades Implementadas
+-Sobre o Código
+Este é um sistema de controle de visitantes implementado em Python. 
+Ele permite registrar informações sobre os visitantes como o nome dele o cpf a idade a hora de entrada e saida o motivo da visita e pesquisar visitantes pelo nome.
+Além disso, oferece um recurso de botao de emergência que inclui uma contagem regressiva que quando termina tranca as portas e tambem tem a opção de chamar a polícia em situações de extremas emergencias.
 
-Registrar novo visitante: Você pode inserir as informações de um novo visitante no programa, incluindo nome, idade, número de documento, motivo da visita, horário de entrada e horário de saída. Os dados são armazenados em uma lista de visitantes.
+-Funcionalidades
+Menu Principal
+O sistema apresenta um menu principal com as seguintes opções:
 
-Pesquisar visitante: O programa permite que você busque um visitante pelo nome e exiba todos os detalhes cadastrados sobre ele, como nome, idade, documento, motivo da visita, horário de entrada e horário de saída.
+Registrar novo visitante: Permite inserir informações sobre um novo visitante, incluindo nome, idade, CPF, motivo da visita e horário de entrada e saída.
+Pesquisar visitante: Permite pesquisar visitantes pelo nome e exibir suas informações.
+Encerrar programa: Fecha o programa.
+Contagem Regressiva de Emergência
+Se você selecionar a opção "Tem alguma emergência?" no início do programa e responder com "S", o sistema entrará em um modo de emergência. Ele iniciará uma contagem regressiva de 10 segundos, depois da contagem as portas são trancadas automaticamente. Após a contagem regressiva, o sistema oferecerá as seguintes opções:
 
-Menu de opções: O programa apresenta um menu de opções interativo que permite escolher entre registrar um novo visitante, pesquisar um visitante existente ou encerrar o programa.
+Acionar a polícia: Você pode escolher acionar a polícia, inserindo informações sobre o incidente, como endereço e descrição.
+Voltar ao menu: Você pode retornar ao menu principal após a confirmação das informações.
+Implementações em Escolas e Faculdades
+Este sistema pode ser implementado em escolas e faculdades para controlar o acesso de visitantes e lidar com situações de emergência, como invasões ou atentados e ate assaltos. Algumas sugestões de uso:
 
+Controle de Visitantes: Registre informações de visitantes autorizados, como pais de alunos ou visitantes da instituição, para garantir a segurança no ambiente escolar ou universitário.
 
-#Especificações e Exigências Atendidas
+Contagem Regressiva de Emergência: Use a contagem regressiva de emergência em casos de invasões, ameaças ou situações de emergência, para trancar as portas e acionar a polícia quando necessário.
 
-Utilização de conceitos de entrada, processamento e saída de dados, empregando f-strings para formatar as informações exibidas de forma clara.
-
-Realização de validações para garantir que as informações fornecidas pelos usuários estejam corretas, como verificar se o CPF tem 11 dígitos e se a hora de saída é posterior à hora de entrada.
-
-Armazenamento dos dados dos visitantes em uma lista para fácil acesso e pesquisa.
-
-Utilização de estruturas condicionais e de repetição para conduzir as operações do programa, incluindo loops para registrar múltiplos visitantes.
-
-Construção de funções para as principais funcionalidades do programa, como registrar e pesquisar visitantes.
-
-
-#Como Utilizar
-
-Execute o programa em um interpretador Python, preferencialmente Python 3.
-
-Siga as opções apresentadas no menu para registrar novos visitantes, pesquisar visitantes cadastrados ou encerrar o programa.
-
-O programa permite que você encerre a execução a qualquer momento.
+Pesquisa de Visitantes: Facilite a pesquisa de visitantes que frequentam a instituição com frequência, facilitando a identificação e o registro de informações.
