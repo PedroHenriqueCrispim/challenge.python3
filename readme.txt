@@ -24,7 +24,7 @@ Encerrar programa: Fecha o programa.
 Contagem Regressiva de Emergência
 Se você selecionar a opção "Tem alguma emergência?" no início do programa e responder com "S", o sistema entrará em um modo de emergência. Ele iniciará uma contagem regressiva de 10 segundos, depois da contagem as portas são trancadas automaticamente. Após a contagem regressiva, o sistema oferecerá as seguintes opções:
 
-Acionar a polícia: Você pode escolher acionar a polícia, inserindo informações sobre o incidente, como endereço e descrição.
+Acionar a polícia: Você pode escolher acionar a polícia, inserindo informações sobre o incidente, como o nome dqa instituição e o ocorrido e todas as informações sao guardadas em um arquivo.json.
 Voltar ao menu: Você pode retornar ao menu principal após a confirmação das informações.
 Implementações em Escolas e Faculdades
 Este sistema pode ser implementado em escolas e faculdades para controlar o acesso de visitantes e lidar com situações de emergência, como invasões ou atentados e ate assaltos. Algumas sugestões de uso:

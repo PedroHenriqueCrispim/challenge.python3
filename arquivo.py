@@ -3,8 +3,7 @@ from datetime import datetime
 import time  # importa o módulo time para a contagem regressiva
 import json
 
-
-""" Carrega os dados do arquivo JSON no início do programa """
+""" Carrega os dados do arquivo JSON sobre os visitantes """
 def carregar_dados():
     try:
         with open('dados.json', 'r') as arquivo:
@@ -14,9 +13,8 @@ def carregar_dados():
     except json.JSONDecodeError:
         print("Erro ao carregar os dados do arquivo JSON.")
         return []
-    
 
-""" Salva os dados em um arquivo JSON """
+""" salva os dados no arquivo JSON (dados.json) """
 def salvar_dados(visitantes):
     try:
         with open('dados.json', 'w') as arquivo:
@@ -25,25 +23,45 @@ def salvar_dados(visitantes):
     except Exception as e:
         print(f"Erro ao salvar os dados: {e}")
 
-
 """ dados iniciais """
 visitantes = carregar_dados()
 
-
-""" Função para exibir o menu """
+""" função para exibir o menu """
 def exibir_menu():
     print("Selecione uma opção:")
     print("1 - Registrar novo visitante")
     print("2 - Pesquisar visitante")
     print("0 - Salvar e encerrar")
 
+""" carrega os dados do arquivo JSON de ocorrências """
+def carregar_dados_ocorrencias():
+    try:
+        with open('ocorrencias.json', 'r') as arquivo:
+            return json.load(arquivo)
+    except FileNotFoundError:
+        return []
+    except json.JSONDecodeError:
+        print("Erro ao carregar os dados do arquivo JSON.")
+        return []
+
+""" salva os dados no arquivo JSON de ocorrências """
+def salvar_dados_ocorrencias(ocorrencias):
+    try:
+        with open('ocorrencias.json', 'w') as arquivo:
+            json.dump(ocorrencias, arquivo, indent=4)
+        print("Dados de ocorrências salvos com sucesso.")
+    except Exception as e:
+        print(f"Erro ao salvar os dados de ocorrências: {e}")
+
+""" dados iniciais das ocorrências """
+ocorrencias = carregar_dados_ocorrencias()
 
 """ função para realizar a contagem regressiva de emergência """
 def contagem_regressiva():
     print()
     print("ATENÇÃO: EMERGÊNCIA DETECTADA!")
     print()
-    for i in range(10, -1, -1):
+    for i in range(5, -1, -1):
         print(f"Tempo restante: {i} segundos")
         time.sleep(1)  # contagem de 1 segundo
     print()
@@ -53,30 +71,37 @@ def contagem_regressiva():
     """ perguntas de emergência """
     ligar_para_policia = input("Deseja acionar a polícia? (S/N)").upper()
     if ligar_para_policia == "S":
-        endereco = input("Digite o endereço do local com CEP: ")
-        ocorrido = input("Descreva o ocorrido: ")
-        
+        endereco = input("Digite o nome da universidade: ")
+        ocorrido = input("Descreva o ocorrido:")
+
         """ mostrar informações coletadas """
         print("\nInformações da emergência:")
-        print(f"Endereço com CEP: {endereco}")
+        print(f"Nome da universidade: {endereco}")
         print(f"Descrição do ocorrido: {ocorrido}")
-        
+
+        informacoes = {
+            'Universidade': endereco,
+            'Ocorrido': ocorrido
+        }
+
         """ confirmar informações """
         confirmacao = input("Confirma as informações? (S/N)").upper()
         if confirmacao == "S":
+            ocorrencias.setdefault('Ocorrencias', []).append(informacoes)  # Adiciona as informações de emergência à lista de ocorrências
+            salvar_dados_ocorrencias(ocorrencias)
             print("Informações confirmadas.")
             print()
             print("Polícia a caminho!")
             print()
             voltar_ao_menu = input("Voltar ao menu? (S/N)").upper()
             if voltar_ao_menu == "S":
-                main()  # Chama a função main() para voltar ao menu
+                main()
             else:
                 print("Programa encerrado.")
         else:
             print("Informações não confirmadas. Refazendo perguntas de emergência.")
-            contagem_regressiva()  # refazer as perguntas de emergência
-
+            contagem_regressiva()
+            
 """ função para registrar um novo visitante """
 def registrar_visitante():
     while True:
@@ -101,14 +126,14 @@ def registrar_visitante():
 
         while True:
             horario_entrada = input("Digite o horário de entrada do visitante (formato HH:MM): ")
-            horario_saida = input("Digite o horário de saída do visitante (formato HH:MM): ")
+            horario_saida = input("Digite o horário de saida do visitante (formato HH:MM): ")
             try:
                 entrada = horario_entrada
                 saida = horario_saida
                 if entrada <= saida:
                     break
                 else:
-                    print("A hora de saída deve ser maior ou igual à hora de entrada. Tente novamente.")
+                    print("A hora de saida deve ser maior ou igual à hora de entrada. Tente novamente.")
             except ValueError:
                 print("Formato de hora inválido. Use HH:MM. Tente novamente.")
                 continue
@@ -119,7 +144,7 @@ def registrar_visitante():
             'Documento': documento,
             'Motivo': motivo,
             'Entrada': entrada,
-            'Saída': saida
+            'Saida': saida
         }
 
         visitantes.append(visitante)
@@ -135,7 +160,7 @@ def registrar_visitante():
             else:
                 print("Resposta inválida. Por favor, digite 'S' para Sim ou 'N' para Não.")
 
-""" Função para pesquisar visitantes com o mesmo nome """
+""" função para pesquisar visitantes com o mesmo nome """
 def pesquisar_visitante():
     nome_pesquisa = input("Digite o nome do visitante que deseja pesquisar: ")
     encontrados = []
@@ -151,13 +176,12 @@ def pesquisar_visitante():
             print(f"Documento: {visitante['Documento']}")
             print(f"Motivo da visita: {visitante['Motivo']}")
             print(f"Horário de entrada: {visitante['Entrada']}")
-            print(f"Horário de saída: {visitante['Saída']}")
+            print(f"Horário de saida: {visitante['Saida']}")
             print("-" * 20)
     else:
         print("Visitante não encontrado.")
 
-
-""" Função principal do menu """
+""" função principal do menu """
 def main():
     while True:
         exibir_menu()
@@ -176,13 +200,13 @@ def main():
         else:
             print("Opção inválida. Tente novamente.")
 
-""" Iniciar o programa """
+""" iniciar o programa """
 if __name__ == "__main__":
     try:
         tem_emergencia = input("Tem alguma emergência? (S/N)").upper()
         if tem_emergencia == "S":
             contagem_regressiva()
         else:
-            main()  # Executa o menu de cadastro normalmente
+            main()
     except KeyboardInterrupt:
         print("\nPrograma interrompido pelo usuário.")
