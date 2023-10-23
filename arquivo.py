@@ -93,15 +93,34 @@ def contagem_regressiva():
             print()
             print("Polícia a caminho!")
             print()
-            voltar_ao_menu = input("Voltar ao menu? (S/N)").upper()
-            if voltar_ao_menu == "S":
+            dicas_de_emergencia = input("Prescione 'S' para ver as dicas de emergencias: ")
+            if dicas_de_emergencia == "s":
+                print()
+                print("Dicas de emergencia:\n")
+                print("1-Fique em um local seguro")
+                print("2-Silencio absoluto")
+                print("3-Bloqueie as portas")
+                print("4-Evite ficar perto de portas e janelas de vidros")
+                print("5-Não confronte o intruso")
+                print("6-Esteja preparado para a chegada da policia")
+                print("7-Conheça as saidas de segurancas da sua universidade")
+                print("8-Mantenha a calma\n")
+                print("Menu pricipal\n")
                 main()
             else:
-                print("Programa encerrado.")
+                voltar_ao_menu = input("Voltar ao menu? (S/N)").upper()
+                if voltar_ao_menu == "S":
+                    main()
+                else:
+                    print("Programa encerrado.")
         else:
             print("Informações não confirmadas. Refazendo perguntas de emergência.")
             contagem_regressiva()
-            
+    else:
+        print("Voltando ao menu.")
+        main()
+
+
 """ função para registrar um novo visitante """
 def registrar_visitante():
     while True:
