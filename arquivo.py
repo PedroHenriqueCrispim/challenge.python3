@@ -31,7 +31,8 @@ def exibir_menu():
     print("Selecione uma opção:")
     print("1 - Registrar novo visitante")
     print("2 - Pesquisar visitante")
-    print("0 - Salvar e encerrar")
+    print("3 - Editar alunos")
+    print("0 - Encerrar")
 
 """ carrega os dados do arquivo JSON de ocorrências """
 def carregar_dados_ocorrencias():
@@ -116,9 +117,11 @@ def contagem_regressiva():
         else:
             print("Informações não confirmadas. Refazendo perguntas de emergência.")
             contagem_regressiva()
-    else:
+    elif ligar_para_policia == "N":
         print("Voltando ao menu.")
         main()
+    else:
+        print("Resposta inválida, programa encerrado")
 
 
 """ função para registrar um novo visitante """
@@ -200,6 +203,48 @@ def pesquisar_visitante():
     else:
         print("Visitante não encontrado.")
 
+
+""" função para editar os dados do visitante """
+def editar_alunos():
+    caminho_arquivo_json = 'dados.json'
+
+    alunos = carregar_dados()
+
+    if not alunos:
+        print("A lista de alunos está vazia. Não há alunos para editar.")
+        return
+
+    #lista os nomes dos alunos para saber qual nome editar
+    print("Lista de Alunos:")
+    for i, aluno in enumerate(alunos, start=1):
+        print(f"{i}. {aluno['Nome']}")
+
+    try:
+        escolha = int(input("Digite o número do aluno que deseja editar: ")) - 1  #subtrai 1 para corresponder ao índice da lista
+
+        #verifica se a escolha do usuário está dentro dos limites
+        if 0 <= escolha < len(alunos):
+            aluno = alunos[escolha]
+
+            #fazer as ediçoes
+            aluno['Nome'] = input(f"Nome atual: {aluno['Nome']}. Novo nome: ")
+            aluno['Idade'] = int(input(f"Idade atual: {aluno['Idade']}. Nova idade: "))
+            aluno['Documento'] = input(f"CPF atual: {aluno['Documento']}. Novo CPF: ")
+            aluno['Entrada'] = input(f"Hora de entrada atual: {aluno['Entrada']}. Nova hora de entrada (formato HH:MM): ")
+            aluno['Saida'] = input(f"Hora de saída atual: {aluno['Saida']}. Nova hora de saída (formato HH:MM): ")
+            aluno['Motivo'] = input(f"Motivo atual: {aluno['Motivo']}. Novo motivo: ")
+
+            #salvar as alterações no arquivo JSON
+            salvar_dados(alunos)
+            print("Edições salvas com sucesso.")
+        else:
+            print("Escolha inválida. O número do aluno não existe na lista.")
+    except ValueError:
+        print("Escolha inválida. Digite um número válido.")
+
+    input("Pressione Enter para continuar após editar os alunos.")
+    
+
 """ função principal do menu """
 def main():
     while True:
@@ -210,9 +255,7 @@ def main():
         elif opcao == "2":
             pesquisar_visitante()
         elif opcao == "3":
-            salvar_dados(visitantes)
-            print("Encerrando o programa.")
-            break
+            editar_alunos()
         elif opcao == "0":
             salvar_dados(visitantes)
             break
@@ -225,7 +268,9 @@ if __name__ == "__main__":
         tem_emergencia = input("Tem alguma emergência? (S/N)").upper()
         if tem_emergencia == "S":
             contagem_regressiva()
-        else:
+        elif tem_emergencia == "N":
             main()
+        else:
+            print("Resposta inválida, programa encerrado")
     except KeyboardInterrupt:
         print("\nPrograma interrompido pelo usuário.")
