@@ -205,7 +205,7 @@ def pesquisar_visitante():
 
 
 """ função para editar os dados do visitante """
-def editar_alunos():
+def editar_visitantes():
     caminho_arquivo_json = 'dados.json'
 
     alunos = carregar_dados()
@@ -255,7 +255,7 @@ def main():
         elif opcao == "2":
             pesquisar_visitante()
         elif opcao == "3":
-            editar_alunos()
+            editar_visitantes()
         elif opcao == "0":
             salvar_dados(visitantes)
             break
