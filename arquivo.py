@@ -2,6 +2,7 @@
 from datetime import datetime
 import time  # importa o módulo time para a contagem regressiva
 import json
+import requests
 
 """ Carrega os dados do arquivo JSON sobre os visitantes """
 def carregar_dados():
@@ -19,7 +20,6 @@ def salvar_dados(visitantes):
     try:
         with open('dados.json', 'w') as arquivo:
             json.dump(visitantes, arquivo, indent=4)
-        print("Dados salvos com sucesso.")
     except Exception as e:
         print(f"Erro ao salvar os dados: {e}")
 
@@ -32,6 +32,7 @@ def exibir_menu():
     print("1 - Registrar novo visitante")
     print("2 - Pesquisar visitante")
     print("3 - Editar alunos")
+    print("4 - Salvar visitantes")
     print("0 - Encerrar")
 
 """ carrega os dados do arquivo JSON de ocorrências """
@@ -57,6 +58,18 @@ def salvar_dados_ocorrencias(ocorrencias):
 """ dados iniciais das ocorrências """
 ocorrencias = carregar_dados_ocorrencias()
 
+""" função para consultar cep usando API """
+def consultar_cep(cep):
+    url = f'https://viacep.com.br/ws/{cep}/json/'
+    resposta = requests.get(url)
+    if resposta.status_code == 200:
+        dicionario = resposta.json()
+        return dicionario
+    else:
+        print("Erro: CEP invalido.")
+        return None
+
+
 """ função para realizar a contagem regressiva de emergência """
 def contagem_regressiva():
     print()
@@ -64,7 +77,7 @@ def contagem_regressiva():
     print()
     for i in range(5, -1, -1):
         print(f"Tempo restante: {i} segundos")
-        time.sleep(1)  # contagem de 1 segundo
+        time.sleep(1)  #contagem de 1 segundo
     print()
     print("PORTAS TRANCADAS!")
     print()
@@ -72,6 +85,8 @@ def contagem_regressiva():
     """ perguntas de emergência """
     ligar_para_policia = input("Deseja acionar a polícia? (S/N)").upper()
     if ligar_para_policia == "S":
+        cep = input("Informe o CEP: ")
+        dicionario = consultar_cep(cep)
         endereco = input("Digite o nome da universidade: ")
         ocorrido = input("Descreva o ocorrido:")
 
@@ -79,16 +94,23 @@ def contagem_regressiva():
         print("\nInformações da emergência:")
         print(f"Nome da universidade: {endereco}")
         print(f"Descrição do ocorrido: {ocorrido}")
+        print(f"CEP: {dicionario['cep']}")
+        print(f"Rua: {dicionario['logradouro']}")
+        print(f"Complemento: {dicionario['complemento']}")
+        print(f"Bairro: {dicionario['bairro']}")
+        print(f"Cidade: {dicionario['localidade']}")
+        print(f"Estado: {dicionario['uf']}")
 
         informacoes = {
             'Universidade': endereco,
-            'Ocorrido': ocorrido
+            'Ocorrido': ocorrido,
+            'Informações': dicionario
         }
 
         """ confirmar informações """
         confirmacao = input("Confirma as informações? (S/N)").upper()
         if confirmacao == "S":
-            ocorrencias.setdefault('Ocorrencias', []).append(informacoes)  # Adiciona as informações de emergência à lista de ocorrências
+            ocorrencias.setdefault('Ocorrencias', []).append(informacoes)  #adiciona as informações de emergência à lista de ocorrências
             salvar_dados_ocorrencias(ocorrencias)
             print("Informações confirmadas.")
             print()
@@ -182,6 +204,13 @@ def registrar_visitante():
             else:
                 print("Resposta inválida. Por favor, digite 'S' para Sim ou 'N' para Não.")
 
+
+""" função para salvar o visitante sem prescisar encerrar o programa """
+def salvar_visitantes():
+    salvar_dados(visitantes)
+    print("Visitantes salvos com sucesso.")
+
+
 """ função para pesquisar visitantes com o mesmo nome """
 def pesquisar_visitante():
     nome_pesquisa = input("Digite o nome do visitante que deseja pesquisar: ")
@@ -237,6 +266,11 @@ def editar_visitantes():
             #salvar as alterações no arquivo JSON
             salvar_dados(alunos)
             print("Edições salvas com sucesso.")
+
+            #atualize o objeto visitantes após as edições
+            visitantes.clear()
+            visitantes.extend(alunos)
+            
         else:
             print("Escolha inválida. O número do aluno não existe na lista.")
     except ValueError:
@@ -256,8 +290,11 @@ def main():
             pesquisar_visitante()
         elif opcao == "3":
             editar_visitantes()
+        elif opcao == "4":
+            salvar_visitantes()
         elif opcao == "0":
             salvar_dados(visitantes)
+            print("Programa encerrado")
             break
         else:
             print("Opção inválida. Tente novamente.")
