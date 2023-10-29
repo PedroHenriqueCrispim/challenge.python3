@@ -2,7 +2,7 @@
 from datetime import datetime
 import time  # importa o módulo time para a contagem regressiva
 import json
-import requests
+import requests #importando a API   
 
 """ Carrega os dados do arquivo JSON sobre os visitantes """
 def carregar_dados():
@@ -49,8 +49,8 @@ def carregar_dados_ocorrencias():
 """ salva os dados no arquivo JSON de ocorrências """
 def salvar_dados_ocorrencias(ocorrencias):
     try:
-        with open('ocorrencias.json', 'w') as arquivo:
-            json.dump(ocorrencias, arquivo, indent=4)
+        with open('ocorrencias.json', 'w', encoding='utf-8') as arquivo:
+            json.dump(ocorrencias, arquivo,ensure_ascii=False, indent=4)
         print("Dados de ocorrências salvos com sucesso.")
     except Exception as e:
         print(f"Erro ao salvar os dados de ocorrências: {e}")
@@ -60,15 +60,20 @@ ocorrencias = carregar_dados_ocorrencias()
 
 """ função para consultar cep usando API """
 def consultar_cep(cep):
-    url = f'https://viacep.com.br/ws/{cep}/json/'
-    resposta = requests.get(url)
-    if resposta.status_code == 200:
-        dicionario = resposta.json()
-        return dicionario
-    else:
-        print("Erro: CEP invalido.")
-        return None
-
+    while True:
+        url = f'https://viacep.com.br/ws/{cep}/json/'
+        resposta = requests.get(url)
+        if resposta.status_code == 200:
+            dicionario = resposta.json()
+            return dicionario
+        else:
+            print("Erro: CEP invalido.")
+            novo_cep = input("Digite o CEP novamente: ")
+            if novo_cep.isdigit() and len(novo_cep) == 8: #verifica se tem 8 digitos no CEP
+                cep = novo_cep
+            else:
+                print("CEP invalido. Tente novamente. ")
+                continue
 
 """ função para realizar a contagem regressiva de emergência """
 def contagem_regressiva():
