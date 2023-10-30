@@ -21,11 +21,12 @@ O sistema apresenta um menu principal com as seguintes opções:
 Registrar novo visitante: Permite inserir informações sobre um novo visitante, incluindo nome, idade, CPF, motivo da visita e horário de entrada e saída.
 Pesquisar visitante: Permite pesquisar visitantes pelo nome e exibir suas informações.
 Editar visitantes: Permite que voce edite alguma informaçõesdos visitante se for colocado errado.
+Salvar visitantes: Permite que salve os dados dos visitantes sem precisar encerrar o programa
 Encerrar programa: Fecha o programa.
 Contagem Regressiva de Emergência
 Se você selecionar a opção "Tem alguma emergência?" no início do programa e responder com "S", o sistema entrará em um modo de emergência. Ele iniciará uma contagem regressiva de 5 segundos, depois da contagem as portas são trancadas automaticamente. Após a contagem regressiva, o sistema oferecerá as seguintes opções:
 
-Acionar a polícia: Você pode escolher acionar a polícia, inserindo informações sobre o incidente, como o nome dqa instituição e o ocorrido e todas as informações sao guardadas em um arquivo.json.
+Acionar a polícia: Você pode escolher acionar a polícia, inserindo informações sobre o incidente, como o nome da instituição e o ocorrido e tambem o CEP que atraves de uma API ja traz todos os dados do local, todas as informações sao guardadas em um arquivo.json.
 Voltar ao menu: Você pode retornar ao menu principal após a confirmação das informações.
 Implementações em Escolas e Faculdades
 Este sistema pode ser implementado em escolas e faculdades para controlar o acesso de visitantes e lidar com situações de emergência, como invasões ou atentados e ate assaltos. Algumas sugestões de uso:
@@ -35,3 +36,7 @@ Controle de Visitantes: Registre informações de visitantes autorizados, como p
 Contagem Regressiva de Emergência: Use a contagem regressiva de emergência em casos de invasões, ameaças ou situações de emergência, para trancar as portas e acionar a polícia quando necessário.
 
 Pesquisa de Visitantes: Facilite a pesquisa de visitantes que frequentam a instituição com frequência, facilitando a identificação e o registro de informações.
+
+
+Para o uso desse codigo voce precisara instalar  o 'requests', pra isso e so abrir o terminal e colocar:
+"npm install requests"

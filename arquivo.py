@@ -1,6 +1,6 @@
 """ importa o módulo datetime no início do seu código """
 from datetime import datetime
-import time  # importa o módulo time para a contagem regressiva
+import time  #importa o módulo time para a contagem regressiva
 import json
 import requests #importando a API   
 
@@ -31,7 +31,7 @@ def exibir_menu():
     print("Selecione uma opção:")
     print("1 - Registrar novo visitante")
     print("2 - Pesquisar visitante")
-    print("3 - Editar alunos")
+    print("3 - Editar visitante")
     print("4 - Salvar visitantes")
     print("0 - Encerrar")
 
@@ -65,15 +65,17 @@ def consultar_cep(cep):
         resposta = requests.get(url)
         if resposta.status_code == 200:
             dicionario = resposta.json()
-            return dicionario
-        else:
-            print("Erro: CEP invalido.")
-            novo_cep = input("Digite o CEP novamente: ")
-            if novo_cep.isdigit() and len(novo_cep) == 8: #verifica se tem 8 digitos no CEP
-                cep = novo_cep
+            if 'erro' in dicionario:
+                print("Erro: CEP não existe. ")
+                novo_cep = input("Digite o CEP novamente: ")
+                if novo_cep.isdigit() and len(novo_cep) == 8: #verifica se tem 8 digitos no CEP
+                    cep = novo_cep
+                else:
+                    print("CEP invalido. Tente novamente. ")
             else:
-                print("CEP invalido. Tente novamente. ")
-                continue
+                return dicionario
+        else:
+            continue
 
 """ função para realizar a contagem regressiva de emergência """
 def contagem_regressiva():
