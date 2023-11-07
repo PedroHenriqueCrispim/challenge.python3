@@ -1,5 +1,3 @@
-""" importa o módulo datetime no início do seu código """
-from datetime import datetime
 import time  #importa o módulo time para a contagem regressiva
 import json
 import requests #importando a API   
@@ -7,7 +5,7 @@ import requests #importando a API
 """ Carrega os dados do arquivo JSON sobre os visitantes """
 def carregar_dados():
     try:
-        with open('dados.json', 'r') as arquivo:
+        with open('dados.json', 'r', encoding='utf-8') as arquivo:
             return json.load(arquivo)
     except FileNotFoundError:
         return []
@@ -18,7 +16,7 @@ def carregar_dados():
 """ salva os dados no arquivo JSON (dados.json) """
 def salvar_dados(visitantes):
     try:
-        with open('dados.json', 'w') as arquivo:
+        with open('dados.json', 'w', encoding='utf-8') as arquivo:
             json.dump(visitantes, arquivo, indent=4)
     except Exception as e:
         print(f"Erro ao salvar os dados: {e}")
@@ -38,7 +36,7 @@ def exibir_menu():
 """ carrega os dados do arquivo JSON de ocorrências """
 def carregar_dados_ocorrencias():
     try:
-        with open('ocorrencias.json', 'r') as arquivo:
+        with open('ocorrencias.json', 'r', encoding='utf-8') as arquivo:
             return json.load(arquivo)
     except FileNotFoundError:
         return []
@@ -61,20 +59,24 @@ ocorrencias = carregar_dados_ocorrencias()
 """ função para consultar cep usando API """
 def consultar_cep(cep):
     while True:
-        url = f'https://viacep.com.br/ws/{cep}/json/'
-        resposta = requests.get(url)
-        if resposta.status_code == 200:
-            dicionario = resposta.json()
-            if 'erro' in dicionario:
-                print("Erro: CEP não existe. ")
-                novo_cep = input("Digite o CEP novamente: ")
-                if novo_cep.isdigit() and len(novo_cep) == 8: #verifica se tem 8 digitos no CEP
-                    cep = novo_cep
+        try:
+            url = f'https://viacep.com.br/ws/{cep}/json/'
+            resposta = requests.get(url)
+            if resposta.status_code == 200:
+                dicionario = resposta.json()
+                if 'erro' in dicionario:
+                    print("Erro: CEP não existe. ")
+                    novo_cep = input("Digite o CEP novamente: ")
+                    if novo_cep.isdigit() and len(novo_cep) == 8: #verifica se tem 8 digitos no CEP
+                        cep = novo_cep
+                    else:
+                        print("CEP invalido. Tente novamente. ")
                 else:
-                    print("CEP invalido. Tente novamente. ")
+                    return dicionario
             else:
-                return dicionario
-        else:
+                continue
+        except requests.exceptions.ConnectTimeout:
+            print('Erro ao carregar API, aguarde..')
             continue
 
 """ função para realizar a contagem regressiva de emergência """
@@ -94,6 +96,10 @@ def contagem_regressiva():
     if ligar_para_policia == "S":
         cep = input("Informe o CEP: ")
         dicionario = consultar_cep(cep)
+        dicionario.pop('ddd')
+        dicionario.pop('ibge')
+        dicionario.pop('gia')
+        dicionario.pop('siafi')
         endereco = input("Digite o nome da universidade: ")
         ocorrido = input("Descreva o ocorrido:")
 
