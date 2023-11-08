@@ -74,7 +74,12 @@ def consultar_cep(cep):
                 else:
                     return dicionario
             else:
-                continue
+                print(f"Erro: Status code {resposta.status_code}")
+                novo_cep = input("Digite o CEP novamente: ")
+                if novo_cep.isdigit() and len(novo_cep) == 8:  # Verifica se tem 8 dígitos no CEP
+                    cep = novo_cep
+                else:
+                    print("CEP inválido. Tente novamente. ")
         except requests.exceptions.ConnectTimeout:
             print('Erro ao carregar API, aguarde..')
             continue
