@@ -60,7 +60,7 @@ ocorrencias = carregar_dados_ocorrencias()
 def consultar_cep(cep):
     while True:
         try:
-            url = f'https://viacep.com.br/ws/{cep}/json/'
+            url = f'https://opencep.com/v1/{cep}'
             resposta = requests.get(url)
             if resposta.status_code == 200:
                 dicionario = resposta.json()
@@ -96,10 +96,7 @@ def contagem_regressiva():
     if ligar_para_policia == "S":
         cep = input("Informe o CEP: ")
         dicionario = consultar_cep(cep)
-        dicionario.pop('ddd')
         dicionario.pop('ibge')
-        dicionario.pop('gia')
-        dicionario.pop('siafi')
         endereco = input("Digite o nome da universidade: ")
         ocorrido = input("Descreva o ocorrido:")
 
